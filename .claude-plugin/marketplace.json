@@ -1,0 +1,8 @@
+{
+  "name": "orquestra",
+  "owner": { "name": "Gabriel Alves Damas" },
+  "description": "Harness multiagente para o Claude Code",
+  "plugins": [
+    { "name": "orquestra", "source": "./", "description": "Harness multiagente com orquestração pela sessão principal" }
+  ]
+}
