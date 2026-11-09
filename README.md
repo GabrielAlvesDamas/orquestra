@@ -6,7 +6,7 @@ Plugin do Claude Code que transforma a sessão principal em orquestradora de 8 a
 
 ## Instalar
 ```
-/plugin marketplace add <usuario>/orquestra
+/plugin marketplace add GabrielAlvesDamas/orquestra
 /plugin install orquestra@orquestra
 ```
 
