@@ -7,15 +7,15 @@ execution:
   max_turns: 60
   timeout_seconds: 1500
   allowed_tools: [Read, Glob, Grep, Skill, Agent, Write, Edit, Bash]
-  prompt: "Use a skill orquestrar para esta tarefa: crie slug.py com slugify(s) que converte 'Olá Mundo!' em 'ola-mundo' (sem acentos, minúsculas, hífens), com testes."
+  prompt: "Use a skill orquestrar com o fluxo completo de código (não resolva sozinha) para esta tarefa: crie slug.py com slugify(s) que converte 'Olá Mundo!' em 'ola-mundo' (sem acentos, minúsculas, hífens), com testes."
 graders:
   - name: criou-arquivo
     type: file_exists
     path: "slug.py"
   - name: revisou
-    type: tool_used
-    tool: Agent
-    input_match: '"subagent_type"\s*:\s*"orquestra:revisor"'
+    type: regex
+    target: trace
+    pattern: '"subagent_type"\s*:\s*"orquestra:revisor"'
   - name: revisor-viu-arquivo-novo
     type: llm
     focus: trace
