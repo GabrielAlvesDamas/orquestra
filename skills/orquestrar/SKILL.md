@@ -29,6 +29,8 @@ Ao chamar cada agente (tipo `orquestra:<agente>`), o prompt deve conter:
 
 Status que os agentes devolvem: OK | FALHOU | REPROVADO | BLOQUEADO.
 
+**Espera:** cada etapa depende da anterior, então chame o agente em primeiro plano (`run_in_background: false`). Nunca termine o turno esperando um agente: o fluxo para ali.
+
 **Paralelismo:** chame na mesma mensagem só agentes que não alteram arquivos (várias perguntas de pesquisa). Etapas de implementação rodam em sequência: compartilham a mesma cópia de trabalho, e builds/testes simultâneos dão falhas falsas.
 
 ## 4. Laços de correção

@@ -19,4 +19,4 @@ graders:
   - name: revisor-viu-arquivo-novo
     type: llm
     focus: trace
-    criteria: "O agente revisor leu o conteúdo de slug.py (arquivo novo, não rastreado) antes de dar o veredito, e o veredito cita slug.py."
+    criteria: "O resultado devolvido pelo agente orquestra:revisor comenta o conteúdo de slug.py (ex.: a lógica de slugify ou linhas específicas), mostrando que o arquivo novo foi revisado e não só o git diff."
