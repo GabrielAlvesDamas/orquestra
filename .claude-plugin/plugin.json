@@ -1,6 +1,6 @@
 {
   "name": "orquestra",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "description": "Harness multiagente: 8 agentes especializados + skill /orquestrar para a sessão principal coordenar o trabalho via handoffs em .harness/",
   "author": { "name": "Gabriel Alves Damas" }
