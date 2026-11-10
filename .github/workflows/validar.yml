@@ -1,0 +1,13 @@
+name: validar
+on: [push, pull_request]
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install -g @anthropic-ai/claude-code
+      - run: claude plugin validate . --strict
+      - name: Bloco de handoff idêntico nos agentes
+        run: |
+          n=$(for f in agents/*.md; do sed -n '/^## Protocolo de handoff/,$p' "$f" | md5sum; done | sort -u | wc -l)
+          [ "$n" -eq 1 ] || { echo "Protocolo de handoff divergiu entre os agentes"; exit 1; }

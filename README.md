@@ -30,3 +30,10 @@ Ou chame um agente direto: "use o agente orquestra:revisor neste diff".
 
 ## Como os agentes se conectam
 Subagentes não chamam uns aos outros. A sessão principal (skill `orquestrar`) despacha cada um e passa o contexto por arquivos em `.harness/<tarefa>/` (`01-pesquisa.md`, `02-plano.md`, ...). Teste falhou ou revisor reprovou → volta ao implementador e repete teste e revisão, no máximo 2 voltas por tarefa. Status padrão: OK | FALHOU | REPROVADO | BLOQUEADO.
+
+## Validação e avaliação
+- **A cada push/PR** (`.github/workflows/validar.yml`): `claude plugin validate . --strict` e checagem de que o protocolo de handoff é idêntico nos 8 agentes.
+- **Avaliação** (`evals/`, disparo manual em Actions → avaliar; precisa do segredo `ANTHROPIC_API_KEY`): roda o fluxo completo em 3 casos — bug com teste, feature em arquivo novo e teste que já falhava antes. Custa tokens: rode quando mudar um prompt. Local:
+  ```
+  claude plugin eval . --trust-plugin --scaffold --runs 1 --ablation none --allow-tools Write Edit Bash --max-cost-usd 15
+  ```
