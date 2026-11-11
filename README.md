@@ -33,7 +33,7 @@ Subagentes não chamam uns aos outros. A sessão principal (skill `orquestrar`) 
 
 ## Validação e avaliação
 - **A cada push/PR** (`.github/workflows/validar.yml`): `claude plugin validate . --strict` e checagem de que o protocolo de handoff é idêntico nos 8 agentes.
-- **Avaliação** (`evals/`, disparo manual em Actions → avaliar; precisa do segredo `ANTHROPIC_API_KEY`): roda o fluxo completo em 3 casos — bug com teste, feature em arquivo novo e teste que já falhava antes. Custa tokens: rode quando mudar um prompt. Local:
+- **Avaliação** (`evals/`, disparo manual em Actions → avaliar; precisa do segredo `ANTHROPIC_API_KEY` no environment `avaliacao`, com você como revisor obrigatório): roda o fluxo completo em 3 casos — bug com teste, feature em arquivo novo e teste que já falhava antes. Custa tokens: rode quando mudar um prompt. Local:
   ```
   claude plugin eval . --trust-plugin --scaffold --runs 1 --ablation none --allow-tools Write Edit Bash --max-cost-usd 15
   ```

@@ -1,9 +1,13 @@
 # Roda o fluxo inteiro em cada caso: custa tokens. Dispare à mão quando mudar um prompt.
 name: avaliar
 on: workflow_dispatch
+permissions:
+  contents: read
 jobs:
   avaliar:
     runs-on: ubuntu-latest
+    # chave fica no environment; com "Required reviewers", cada execução espera aprovação
+    environment: avaliacao
     steps:
       - uses: actions/checkout@v4
       - run: npm install -g @anthropic-ai/claude-code
