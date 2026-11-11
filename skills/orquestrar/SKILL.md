@@ -3,7 +3,7 @@ name: orquestrar
 description: Transforma a sessão principal em orquestradora do harness multiagente — tria a tarefa, escolhe o fluxo, despacha os agentes do orquestra (pesquisador, arquiteto, implementador, testador, revisor, produto, redator, ops) e conecta seus resultados via .harness/. Use quando o usuário pedir /orquestrar ou uma tarefa com várias etapas.
 ---
 
-# Orquestração do harness
+# Orquestração do harness 
 
 Você (sessão principal) é a orquestradora. Subagentes não falam entre si: **toda conexão passa por você**, via arquivos em `.harness/<tarefa>/`.
 
