@@ -1,0 +1,22 @@
+schema_version: "1.1"
+name: feature-arquivo-novo
+description: Feature num arquivo novo; o revisor precisa ler o arquivo, que não aparece em git diff.
+context:
+  scaffold_script: scaffold.sh
+execution:
+  max_turns: 60
+  timeout_seconds: 1500
+  allowed_tools: [Read, Glob, Grep, Skill, Agent, Write, Edit, Bash]
+  prompt: "Use a skill orquestrar com o fluxo completo de código (não resolva sozinha) para esta tarefa: crie slug.py com slugify(s) que converte 'Olá Mundo!' em 'ola-mundo' (sem acentos, minúsculas, hífens), com testes."
+graders:
+  - name: criou-arquivo
+    type: file_exists
+    path: "slug.py"
+  - name: revisou
+    type: regex
+    target: trace
+    pattern: '"subagent_type"\s*:\s*"orquestra:revisor"'
+  - name: revisor-viu-arquivo-novo
+    type: llm
+    focus: trace
+    criteria: "O resultado devolvido pelo agente orquestra:revisor comenta o conteúdo de slug.py (ex.: a lógica de slugify ou linhas específicas), mostrando que o arquivo novo foi revisado e não só o git diff."

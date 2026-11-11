@@ -1,0 +1,24 @@
+# Roda o fluxo inteiro em cada caso: custa tokens. Dispare à mão quando mudar um prompt.
+name: avaliar
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  avaliar:
+    runs-on: ubuntu-latest
+    # chave fica no environment; com "Required reviewers", cada execução espera aprovação
+    environment: avaliacao
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm install -g @anthropic-ai/claude-code
+      # sandbox exigido para liberar Bash nas avaliações
+      - run: sudo apt-get update -qq && sudo apt-get install -y bubblewrap socat
+      - run: >
+          claude plugin eval . --trust-plugin --scaffold --runs 1 --ablation none
+          --allow-tools Write Edit Bash --threshold 0.8 --max-cost-usd 15
+          --no-publish --json results.json
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: resultados-eval, path: results.json }
