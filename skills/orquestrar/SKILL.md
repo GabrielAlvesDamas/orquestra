@@ -1,6 +1,6 @@
 ---
 name: orquestrar
-description: Transforma a sessão principal em orquestradora do harness multiagente — tria a tarefa, escolhe o fluxo, despacha os agentes do orquestra (pesquisador, arquiteto, implementador, testador, revisor, produto, redator, ops) e conecta seus resultados via .harness/. Use quando o usuário pedir /orquestrar ou uma tarefa com várias etapas.
+description: Transforma a sessão principal em orquestradora do harness multiagente — tria a tarefa, escolhe o fluxo, despacha os agentes do orquestra (pesquisador, arquiteto, implementador, testador, revisor, produto, designer, redator, ops) e conecta seus resultados via .harness/. Use quando o usuário pedir /orquestrar ou uma tarefa com várias etapas.
 ---
 
 # Orquestração do harness 
@@ -15,7 +15,8 @@ Você (sessão principal) é a orquestradora. Subagentes não falam entre si: **
 | Tipo | Fluxo |
 |---|---|
 | Código (feature, bug, refactor) | pesquisador → arquiteto → implementador → testador → revisor |
-| Produto / design | pesquisador → produto → revisor |
+| Código com interface (tela, componente) | pesquisador → designer → arquiteto → implementador → testador → revisor (produto antes do designer se faltar spec) |
+| Produto / design | pesquisador → produto → designer → revisor |
 | Conteúdo / docs | pesquisador → redator → revisor |
 | Automação / ops | arquiteto → ops → testador |
 
@@ -24,7 +25,7 @@ Pule etapas que não agregam (ex.: sem pesquisa quando o contexto já está clar
 ## 3. Despacho
 Ao chamar cada agente (tipo `orquestra:<agente>`), o prompt deve conter:
 - O objetivo da tarefa em 1–2 frases e o diretório `.harness/<slug>/`.
-- Quais arquivos anteriores ler e em qual arquivo gravar: `01-pesquisa.md`, `02-plano.md`, `03-implementacao.md`, `04-testes.md`, `05-revisao.md` (produto/redator/ops usam `03-<agente>.md`).
+- Quais arquivos anteriores ler e em qual arquivo gravar: `01-pesquisa.md`, `02-plano.md`, `03-implementacao.md`, `04-testes.md`, `05-revisao.md` (produto/designer/redator/ops usam `03-<agente>.md`; se produto/designer vierem antes do arquiteto, mande o arquiteto ler os `03-*.md` já gravados e copiar para o plano os critérios e o texto de `THIRD_PARTY_LICENSES.md`).
 - O revisor não grava arquivos: grave você a resposta dele em `05-revisao.md`.
 
 Status que os agentes devolvem: OK | FALHOU | REPROVADO | BLOQUEADO.
@@ -34,7 +35,7 @@ Status que os agentes devolvem: OK | FALHOU | REPROVADO | BLOQUEADO.
 **Paralelismo:** chame na mesma mensagem só agentes que não alteram arquivos (várias perguntas de pesquisa). Etapas de implementação rodam em sequência: compartilham a mesma cópia de trabalho, e builds/testes simultâneos dão falhas falsas.
 
 ## 4. Laços de correção
-- Testador com FALHOU ou revisor com REPROVADO → devolva ao implementador (ou produto/redator/ops) com o arquivo do achado. Depois da correção, **rode de novo testador → revisor**, gravando `04-testes-2.md`, `05-revisao-2.md`.
+- Testador com FALHOU ou revisor com REPROVADO → devolva ao implementador (ou produto/designer/redator/ops) com o arquivo do achado. Depois da correção, **rode de novo testador → revisor**, gravando `04-testes-2.md`, `05-revisao-2.md`.
 - **No máximo 2 voltas no total da tarefa** (teste e revisão somados); depois, pare e pergunte ao usuário.
 - Falhas pré-existentes (na linha de base do implementador) não geram volta: liste-as como pendência.
 - Agente com BLOQUEADO → resolva você (mais pesquisa, ajuste no plano) ou pergunte ao usuário.
