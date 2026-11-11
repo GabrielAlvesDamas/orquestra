@@ -1,5 +1,8 @@
 name: validar
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
 permissions:
   contents: read
 jobs:
@@ -7,9 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: JSON do plugin válidos
         run: for f in .claude-plugin/*.json; do python3 -m json.tool "$f" > /dev/null; done
       - name: Bloco de handoff idêntico nos agentes
         run: |
           n=$(for f in agents/*.md; do sed -n '/^## Protocolo de handoff/,$p' "$f" | md5sum; done | sort -u | wc -l)
           [ "$n" -eq 1 ] || { echo "Protocolo de handoff divergiu entre os agentes"; exit 1; }
+      - name: Sem link de sessão do Claude em commits e PR
+        if: github.event_name == 'pull_request'
+        env:
+          BASE: ${{ github.base_ref }}
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if { git log --format=%B "origin/$BASE..HEAD"; printf '%s\n' "$BODY"; } | grep -n 'claude\.ai/code/session'; then
+            echo "Remova o link de sessão do Claude dos commits e do corpo do PR"; exit 1
+          fi
