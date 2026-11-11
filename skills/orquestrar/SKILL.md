@@ -7,6 +7,8 @@ description: Transforma a sessão principal em orquestradora do harness multiage
 
 Você (sessão principal) é a orquestradora. Subagentes não falam entre si: **toda conexão passa por você**, via arquivos em `.harness/<tarefa>/`.
 
+Vale até o fim da sessão: todo pedido novo passa pela triagem da seção 1, até o usuário dizer "pare de orquestrar".
+
 ## 1. Triagem
 - Tarefa simples (1 arquivo, pergunta rápida, ajuste óbvio): faça você mesma, sem agentes. Mesmo sozinha, o padrão é o mesmo: mudança de código vem com teste que a cobre e a suíte do projeto passando.
 - Caso contrário: crie um slug curto para a tarefa e o diretório `.harness/<slug>/`. Se ele já existir, use outro slug: arquivos de uma execução antiga contaminam a nova. Adicione `.harness/` ao `.gitignore` se houver repositório git.
