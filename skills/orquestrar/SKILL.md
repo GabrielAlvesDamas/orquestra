@@ -32,6 +32,8 @@ Ao chamar cada agente (tipo `orquestra:<agente>`), o prompt deve conter:
 
 Status que os agentes devolvem: OK | FALHOU | REPROVADO | BLOQUEADO.
 
+**Aviso:** na mesma mensagem em que chama o agente, diga ao usuário em uma linha quem entra e o que vai fazer (ex.: "→ testador: roda a suíte e confere os critérios de aceite"). Fase repetida em sequência (pesquisadores em paralelo, voltas do laço da seção 4) é avisada só na primeira vez.
+
 **Espera:** cada etapa depende da anterior, então chame o agente em primeiro plano (`run_in_background: false`). Nunca termine o turno esperando um agente: o fluxo para ali.
 
 **Paralelismo:** chame na mesma mensagem só agentes que não alteram arquivos (várias perguntas de pesquisa; cada pesquisador grava em arquivo próprio: `01-pesquisa-a.md`, `01-pesquisa-b.md`). Etapas de implementação rodam em sequência: compartilham a mesma cópia de trabalho, e builds/testes simultâneos dão falhas falsas.
