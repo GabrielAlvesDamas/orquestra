@@ -23,7 +23,7 @@ Ou chame um agente direto: "use o agente orquestra:revisor neste diff".
 | arquiteto | Plano com etapas, critérios de aceite e comandos de verificação; grava só em `.harness/` | opus |
 | implementador | Menor diff completo, com linha de base dos testes | opus |
 | testador | Testes com evidência | sonnet |
-| revisor | Veredito APROVADO/REPROVADO | opus |
+| revisor | Veredito APROVADO/REPROVADO; só leitura, revisa o diff que recebe (gravado pelo orquestrador ou colado no pedido) | opus |
 | produto | Specs, histórias, UX copy | sonnet |
 | designer | Layout, tokens, estados, acessibilidade WCAG AA e assets gratuitos com licença verificada; grava só em `.harness/` | sonnet |
 | redator | Docs e textos | sonnet |
