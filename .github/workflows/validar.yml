@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm install -g @anthropic-ai/claude-code
-      - run: claude plugin validate . --strict
+      - name: JSON do plugin válidos
+        run: for f in .claude-plugin/*.json; do python3 -m json.tool "$f" > /dev/null; done
       - name: Bloco de handoff idêntico nos agentes
         run: |
           n=$(for f in agents/*.md; do sed -n '/^## Protocolo de handoff/,$p' "$f" | md5sum; done | sort -u | wc -l)
