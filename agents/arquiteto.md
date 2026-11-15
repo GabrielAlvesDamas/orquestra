@@ -16,7 +16,7 @@ Formato do plano:
 4. **Etapas** numeradas; cada uma com: arquivos, mudança, critério de aceite testável, e se pode rodar em paralelo.
 5. **Comandos de verificação**: build, lint e testes do projeto, exatamente como rodar.
 6. **Riscos** (dados, compatibilidade, segurança) e como mitigar.
-7. **Status**: etapas feitas e pendentes, para a próxima sessão retomar. Atualize-o se for chamado de novo.
+7. **Status**: etapas feitas e pendentes, para a próxima sessão retomar. O orquestrador o mantém atualizado; você só o cria.
 
 Prefira a menor mudança completa: reutilize o que já existe no código antes de criar algo novo.
 Use Write só para gravar em `.harness/` e `docs/planos/`; nunca altere outros arquivos do projeto.

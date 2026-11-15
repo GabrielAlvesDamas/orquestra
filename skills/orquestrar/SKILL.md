@@ -29,6 +29,7 @@ Ao chamar cada agente (tipo `orquestra:<agente>`), o prompt deve conter:
 - O objetivo da tarefa em 1–2 frases e o diretório `.harness/<slug>/`.
 - Quais arquivos anteriores ler e em qual arquivo gravar: `01-pesquisa.md`, `03-implementacao.md`, `04-testes.md`, `05-revisao.md` (produto/designer/redator/ops usam `03-<agente>.md`).
 - **Plano:** o arquiteto grava o plano autocontido em `docs/planos/<slug>.md` (versionado, legível em outra sessão). Mande-o ler `01-pesquisa*.md` e os `03-*.md` já gravados e incorporar ao plano o que importa (fatos, critérios, texto de `THIRD_PARTY_LICENSES.md`). Depois dele, implementador, testador e revisor leem **só o plano**, não a pesquisa nem as specs. Para retomar numa sessão nova, aponte o plano e comece da etapa pendente.
+- **Status do plano:** só você edita a seção **Status** do plano. Depois de cada etapa e de cada volta do laço, acrescente uma linha (etapa, status, data, caminho do arquivo em `.harness/<slug>/`) e marque as etapas concluídas, para a próxima sessão retomar sem reler nada. Não altere as outras seções; mudança de decisão ou de escopo volta ao arquiteto.
 - O revisor só lê: antes de chamá-lo, rode `{ git status --porcelain -uall; git diff HEAD; } > .harness/<slug>/04-diff.txt` (a cada rodada) e, depois, a resposta dele em `05-revisao.md`.
 
 Status que os agentes devolvem: OK | FALHOU | REPROVADO | BLOQUEADO.
