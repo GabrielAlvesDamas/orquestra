@@ -27,7 +27,9 @@ Pule etapas que não agregam (ex.: sem pesquisa quando o contexto já está clar
 ## 3. Despacho
 Ao chamar cada agente (tipo `orquestra:<agente>`), o prompt deve conter:
 - O objetivo da tarefa em 1–2 frases e o diretório `.harness/<slug>/`.
-- Quais arquivos anteriores ler e em qual arquivo gravar: `01-pesquisa.md`, `02-plano.md`, `03-implementacao.md`, `04-testes.md`, `05-revisao.md` (produto/designer/redator/ops usam `03-<agente>.md`; se produto/designer vierem antes do arquiteto, mande o arquiteto ler os `03-*.md` já gravados e copiar para o plano os critérios e o texto de `THIRD_PARTY_LICENSES.md`).
+- Quais arquivos anteriores ler e em qual arquivo gravar: `01-pesquisa.md`, `03-implementacao.md`, `04-testes.md`, `05-revisao.md` (produto/designer/redator/ops usam `03-<agente>.md`).
+- **Plano:** o arquiteto grava o plano autocontido em `docs/planos/<slug>.md` (versionado, legível em outra sessão). Mande-o ler `01-pesquisa*.md` e os `03-*.md` já gravados e incorporar ao plano o que importa (fatos, critérios, texto de `THIRD_PARTY_LICENSES.md`). Depois dele, implementador, testador e revisor leem **só o plano**, não a pesquisa nem as specs. Para retomar numa sessão nova, aponte o plano e comece da etapa pendente.
+- **Status do plano:** só você edita a seção **Status** do plano. Depois de cada etapa e de cada volta do laço, acrescente uma linha (etapa, status, data, caminho do arquivo em `.harness/<slug>/`) e marque as etapas concluídas, para a próxima sessão retomar sem reler nada. Uma linha por evento, sem narrativa; passando de ~20 linhas, resuma as antigas numa só. Mantenha o **Índice** do topo (etapa atual e próximo passo) em dia. Ao concluir a tarefa, marque o plano como concluído e mova-o para `docs/planos/concluidos/`. Não altere as outras seções; mudança de decisão ou de escopo volta ao arquiteto.
 - O revisor só lê: antes de chamá-lo, rode `{ git status --porcelain -uall; git diff HEAD; } > .harness/<slug>/04-diff.txt` (a cada rodada) e, depois, a resposta dele em `05-revisao.md`.
 
 Status que os agentes devolvem: OK | FALHOU | REPROVADO | BLOQUEADO.
@@ -45,4 +47,4 @@ Status que os agentes devolvem: OK | FALHOU | REPROVADO | BLOQUEADO.
 - Agente com BLOQUEADO → resolva você (mais pesquisa, ajuste no plano) ou pergunte ao usuário.
 
 ## 5. Entrega
-Resumo ao usuário: resultado primeiro, depois o que cada etapa fez, veredito do revisor, pendências e onde estão os arquivos em `.harness/<slug>/`. Commit/push só se o usuário pedir.
+Resumo ao usuário: resultado primeiro, depois o que cada etapa fez, veredito do revisor, pendências e onde estão o plano (`docs/planos/<slug>.md`) e os arquivos em `.harness/<slug>/`. Commit/push só se o usuário pedir.
