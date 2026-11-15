@@ -30,7 +30,7 @@ Ou chame um agente direto: "use o agente orquestra:revisor neste diff".
 | ops | CI/CD, scripts, automações | sonnet |
 
 ## Como os agentes se conectam
-Subagentes não chamam uns aos outros. A sessão principal (skill `orquestrar`) despacha cada um e passa o contexto por arquivos em `.harness/<tarefa>/` (`01-pesquisa.md`, `02-plano.md`, ...). Teste falhou ou revisor reprovou → volta ao implementador e repete teste e revisão, no máximo 2 voltas por tarefa. Status padrão: OK | FALHOU | REPROVADO | BLOQUEADO.
+Subagentes não chamam uns aos outros. A sessão principal (skill `orquestrar`) despacha cada um e passa o contexto por arquivos em `.harness/<tarefa>/` (`01-pesquisa.md`, `03-implementacao.md`, ...). O arquiteto grava o plano, com decisões de design, em `docs/planos/<tarefa>.md`, versionado e autocontido: etapas seguintes e novas sessões leem só ele. Teste falhou ou revisor reprovou → volta ao implementador e repete teste e revisão, no máximo 2 voltas por tarefa. Status padrão: OK | FALHOU | REPROVADO | BLOQUEADO.
 
 ## Validação
 A cada push/PR (`.github/workflows/validar.yml`): JSON do plugin válidos e protocolo de handoff idêntico em todos os agentes.
