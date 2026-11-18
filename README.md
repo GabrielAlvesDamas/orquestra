@@ -20,7 +20,7 @@ Ainda decidindo o que construir? Comece pelo maestro:
 ```
 /orquestra:maestro <sua ideia ou dúvida>
 ```
-Ele conversa com você, mostra exemplos e faz perguntas até a decisão ficar clara. Não escreve código. No fim, grava o resumo em `.harness/<tarefa>/00-maestro.md`, e o `/orquestrar` parte dali.
+Ele conversa com você, mostra exemplos e faz perguntas até a decisão ficar clara. No design, rascunha telas em texto para você escolher a direção e critica telas existentes (primeira impressão, usabilidade, hierarquia, consistência, acessibilidade). Não escreve código. No fim, grava o resumo em `.harness/<tarefa>/00-maestro.md`, e o `/orquestrar` parte dali.
 
 ## Agentes
 | Agente | Função | Modelo |
