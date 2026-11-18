@@ -16,6 +16,12 @@ Plugin do Claude Code que transforma a sessão principal em orquestradora de 9 a
 ```
 Ou chame um agente direto: "use o agente orquestra:revisor neste diff".
 
+Ainda decidindo o que construir? Comece pelo maestro:
+```
+/orquestra:maestro <sua ideia ou dúvida>
+```
+Ele conversa com você, mostra exemplos e faz perguntas até a decisão ficar clara. No design, rascunha telas em texto para você escolher a direção e critica telas existentes (primeira impressão, usabilidade, hierarquia, consistência, acessibilidade). Não escreve código. No fim, grava o resumo em `.harness/<tarefa>/00-maestro.md`, e o `/orquestrar` parte dali.
+
 ## Agentes
 | Agente | Função | Modelo |
 |---|---|---|
@@ -25,12 +31,12 @@ Ou chame um agente direto: "use o agente orquestra:revisor neste diff".
 | testador | Testes com evidência | sonnet |
 | revisor | Veredito APROVADO/REPROVADO; só leitura, revisa o diff que recebe (gravado pelo orquestrador ou colado no pedido) | opus |
 | produto | Specs, histórias, UX copy | sonnet |
-| designer | Layout, tokens, estados, acessibilidade WCAG AA e assets gratuitos com licença verificada; grava só em `.harness/` | sonnet |
+| designer | Design system mínimo, layout, estados, acessibilidade WCAG AA e assets gratuitos com licença verificada; gera protótipo HTML em `docs/prototipos/`, captura com Playwright e se autocritica antes de entregar | sonnet |
 | redator | Docs e textos | sonnet |
 | ops | CI/CD, scripts, automações | sonnet |
 
 ## Como os agentes se conectam
-Subagentes não chamam uns aos outros. A sessão principal (skill `orquestrar`) despacha cada um e passa o contexto por arquivos em `.harness/<tarefa>/` (`01-pesquisa.md`, `03-implementacao.md`, ...). O arquiteto grava o plano, com decisões de design, em `docs/planos/<tarefa>.md`, versionado e autocontido: etapas seguintes e novas sessões leem só ele. Teste falhou ou revisor reprovou → volta ao implementador e repete teste e revisão, no máximo 2 voltas por tarefa. Status padrão: OK | FALHOU | REPROVADO | BLOQUEADO.
+O maestro roda na sessão principal, não como subagente, porque precisa conversar com você: subagentes não fazem perguntas no meio do trabalho. Subagentes não chamam uns aos outros. A sessão principal (skill `orquestrar`) despacha cada um e passa o contexto por arquivos em `.harness/<tarefa>/` (`01-pesquisa.md`, `03-implementacao.md`, ...). Em tarefa com tela, o designer gera um protótipo visual (HTML, capturas em celular e desktop) e o orquestrador pede sua aprovação antes de planejar. O arquiteto grava o plano, com decisões de design, em `docs/planos/<tarefa>.md`, versionado e autocontido: etapas seguintes e novas sessões leem só ele. Teste falhou ou revisor reprovou → volta ao implementador e repete teste e revisão, no máximo 2 voltas por tarefa. Status padrão: OK | FALHOU | REPROVADO | BLOQUEADO.
 
 ## Validação
 A cada push/PR (`.github/workflows/validar.yml`): JSON do plugin válidos e protocolo de handoff idêntico em todos os agentes.
