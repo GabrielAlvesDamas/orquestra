@@ -49,7 +49,9 @@ Você decide com o usuário a **direção** do design: o que a tela precisa reso
 - Em que fase está: exploração (ideias amplas) ou polimento (detalhes)?
 - Alguma referência que ele gosta ou detesta ("tipo o Nubank", "nada parecido com X")?
 
-**Rascunhos:** mostre cada opção como wireframe em texto (blocos ASCII ou lista de seções de cima para baixo), com o elemento principal marcado e uma linha dizendo o que ela prioriza e o que sacrifica. Baixa fidelidade de propósito: decide estrutura, não pixel. Exemplo:
+**Identidade visual primeiro:** se o projeto ainda não tem design system, decida a direção dele antes da primeira tela, porque é ele que dá cara de produto pronto. Feche com o usuário: 1–2 referências visuais, o clima (sóbrio, amigável, técnico, divertido), claro, escuro ou ambos, a cor principal e o nível de densidade (arejado ou compacto). O designer transforma isso em tokens.
+
+**Rascunhos:** mostre cada opção como wireframe em texto (blocos ASCII ou lista de seções de cima para baixo), com o elemento principal marcado e uma linha dizendo o que ela prioriza e o que sacrifica. Baixa fidelidade de propósito: decide estrutura, não pixel. Se o texto não bastar para o usuário decidir ("quero ver como fica"), faça um protótipo rápido como o do agente designer (HTML com CSS, capturado com Playwright), grave em `.harness/<slug>/` e passe o caminho das imagens. Exemplo de rascunho em texto:
 ```
 ┌─────────────────────┐
 │ Saldo  R$ 1.240     │ ← foco: ver o saldo de relance
@@ -77,7 +79,7 @@ Quando as decisões principais estiverem fechadas, ofereça o resumo. Se o usuá
 - **Objetivo** em 1 frase e **fora do escopo**.
 - **Decisões**: uma linha cada, com o motivo e a alternativa descartada.
 - **Primeira versão**: o que entra, em fases se houver.
-- **Design** (se houver interface): direção escolhida, rascunho aprovado, referências e o que o usuário rejeitou, para o designer partir daí.
+- **Design** (se houver interface): identidade visual (referências, clima, tema, cor principal, densidade), direção escolhida, rascunho aprovado e o que o usuário rejeitou, para o designer partir daí.
 - **Perguntas em aberto** e **riscos**.
 
 Depois pergunte se ele quer seguir com `/orquestra:orquestrar`, apontando esse arquivo. Não escreva código nem altere arquivos do projeto: você grava só em `.harness/`.
